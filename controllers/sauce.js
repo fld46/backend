@@ -15,6 +15,18 @@ exports.createSauce = (req, res, next) => {
 };
 
 exports.likeSauce = (req, res, next) => {
+    const like = Number(JSON.parse(req.body.like));
+    const sauceId = (req.params.id);
+
+    if (like === -1) {
+
+
+    } else if (like === 0) {
+
+    } else {
+
+    }
+
 
 };
 exports.listeSauces = (req, res, next) => {
