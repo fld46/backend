@@ -1,10 +1,11 @@
+//Importation des differents modules
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Key = process.env.KEY_CRYPT;
 
-
+//Creation d'un utilisateur
 exports.CreateUser = (req, res, next) => {
 
     bcrypt.hash(req.body.password, 10)
@@ -20,7 +21,7 @@ exports.CreateUser = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 
 };
-
+//Fonction d'identification d'un utilisateur
 exports.Login = (req, res, next) => {
 
     User.findOne({ email: req.body.email })

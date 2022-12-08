@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator')
+const uniqueValidator = require('mongoose-unique-validator') // Importation du module unique-validator pour verifier par la suite que l'email du compte est unique
 
 const userSchema = mongoose.Schema({
 
