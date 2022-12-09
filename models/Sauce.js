@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 //Definition d'un schema pour les objets sauce
 const sauceSchema = mongoose.Schema({
     userId: { type: String, required: true },

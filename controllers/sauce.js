@@ -65,7 +65,6 @@ exports.oneSauce = (req, res, next) => {
 exports.updateSauce = (req, res, next) => {
 
     if (req.file) {
-
         Sauce.findOne({ _id: req.params.id })
             .then(sauce => {
                 Fs.remove('./images/' + sauce.imageUrl.split('/')[4])
@@ -86,10 +85,12 @@ exports.deleteOneSauce = (req, res, next) => {
         .then(sauce => {
             Fs.remove('./images/' + sauce.imageUrl.split('/')[4])
                 .then(() => { console.log('success') })
-                .catch(err => { console.error(err) })
+
+        })
+        .then(sauce => {
+            Sauce.deleteOne({ _id: req.params.id })
+                .then(sauce => res.status(200).json({ message: 'sauce supprimée !' }))
         })
         .catch(error => res.status(400).json({ error }));
-    Sauce.deleteOne({ _id: req.params.id })
-        .then(sauce => res.status(200).json({ message: 'sauce supprimée !' }))
-        .catch(error => res.status(400).json({ error }));
+
 };
