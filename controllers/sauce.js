@@ -68,16 +68,21 @@ exports.updateSauce = (req, res, next) => {
         Sauce.findOne({ _id: req.params.id })
             .then(sauce => {
                 Fs.remove('./images/' + sauce.imageUrl.split('/')[4])
-                    .then(() => { console.log('success') })
+                    .then(() => {
+                        req.body.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+                        Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+                            .then(sauce => res.status(200).json({ message: 'sauce modifiée !' }))
+                    })
                     .catch(err => { console.error(err) })
             })
             .catch(error => res.status(400).json({ error }));
-        req.body.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-    };
-    Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-        .then(sauce => res.status(200).json({ message: 'sauce modifiée !' }))
-        .catch(error => res.status(400).json({ error }));
 
+    }
+    else {
+        Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+            .then(sauce => res.status(200).json({ message: 'sauce modifiée !' }))
+            .catch(error => res.status(400).json({ error }));
+    }
 };
 //Fonction de  suppression d'une sauce
 exports.deleteOneSauce = (req, res, next) => {
