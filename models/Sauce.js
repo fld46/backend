@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseError = require('mongoose-errors');
 
 //Definition d'un schema pour les objets sauce
 const sauceSchema = mongoose.Schema({
@@ -15,4 +16,5 @@ const sauceSchema = mongoose.Schema({
     usersDisliked: { type: Array },
 
 });
+sauceSchema.plugin(mongooseError);
 module.exports = mongoose.model('Sauce', sauceSchema);
